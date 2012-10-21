@@ -25,12 +25,13 @@ def merge_and_count_split(left, right, n):
     return (sorted_array, inversions)
 
 
-def get_inversion(A,n):
-    if n <= 1: return (A, 0)
-    (left,x) = get_inversion(A[:n/2], n/2)
-    (right,y) = get_inversion(A[n/2:], n-n/2)
-    (sorted_array,z) = merge_and_count_split(left,right, n)
-    return (sorted_array, x+y+z)
+def get_inversion(array):
+    n = len(array)
+    if n <= 1: return (array, 0)
+    (left,x) = get_inversion(array[:n/2])
+    (right,y) = get_inversion(array[n/2:])
+    (sorted_array,z) = merge_and_count_split(left,right,n)
+    return (sorted_array,x+y+z)
 
 def read_n_convert_to_array(name):
     with open(name) as f:
@@ -43,8 +44,8 @@ def main():
         print 'Please input a file containing integers'
         exit(0)
     name = sys.argv[1]
-    A = read_n_convert_to_array(name)
-    print 'No of inversions ',get_inversion(A,len(A))[1]
+    array = read_n_convert_to_array(name)
+    print 'No of inversions ',get_inversion(array)[1]
 
 if __name__ == '__main__':
     main()
