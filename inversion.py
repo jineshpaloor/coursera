@@ -1,10 +1,12 @@
 #!/usr/bin/python
 
+import sys
+
 def merge_and_count_split(left, right, n):
     i = j = 0
     sorted_array = []
     inversions = 0
-    for k in range(n):
+    for k in xrange(n):
         if left[i] < right[j]:
             sorted_array.append(left[i])
             i += 1
@@ -30,12 +32,19 @@ def get_inversion(A,n):
     (sorted_array,z) = merge_and_count_split(left,right, n)
     return (sorted_array, x+y+z)
 
+def read_n_convert_to_array(name):
+    with open(name) as f:
+        array = f.readlines()
+    return [int(x.strip()) for x in array]
+
 def main():
-    A = [1,3,5,2,4,6]
-    #A = [x for x in range(1000000)]
-    #A.reverse()
-    n = len(A)
-    print 'No of inversions ',get_inversion(A,n)[1]
+
+    if len(sys.argv) < 2:
+        print 'Please input a file containing integers'
+        exit(0)
+    name = sys.argv[1]
+    A = read_n_convert_to_array(name)
+    print 'No of inversions ',get_inversion(A,len(A))[1]
 
 if __name__ == '__main__':
     main()
